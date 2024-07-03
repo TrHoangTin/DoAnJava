@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/animate.min.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(to right, #ffcccc, #ff99cc);
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .navbar-brand {
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+        }
+
+        .floating-circles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,0,150,0.2), rgba(0,204,255,0.2));
+            mix-blend-mode: overlay;
+            animation: move 10s ease-in-out infinite, scale 10s ease-in-out infinite;
+        }
+
+        .circle:nth-child(1) {
+            width: 500px;
+            height: 500px;
+            top: -50px;
+            left: 50px;
+        }
+
+        .circle:nth-child(2) {
+            width: 700px;
+            height: 700px;
+            top: -100px;
+            right: 100px;
+        }
+
+        .circle:nth-child(3) {
+            width: 600px;
+            height: 600px;
+            bottom: -100px;
+            left: -100px;
+        }
+
+        .circle:nth-child(4) {
+            width: 800px;
+            height: 800px;
+            bottom: -150px;
+            right: -150px;
+        }
+
+        .circle:nth-child(5) {
+            width: 400px;
+            height: 400px;
+            top: 200px;
+            left: 200px;
+        }
+
+        .circle:nth-child(6) {
+            width: 900px;
+            height: 900px;
+            bottom: 250px;
+            right: 250px;
+        }
+
+        .circle:nth-child(7) {
+            width: 700px;
+            height: 700px;
+            top: 300px;
+            left: 300px;
+        }
+
+        .circle:nth-child(8) {
+            width: 1100px;
+            height: 1100px;
+            bottom: 350px;
+            right: 350px;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-20px) translateX(-20px);
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+        @keyframes scale {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .content-wrapper {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .jumbotron {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 3rem 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .jumbotron h1 {
+            font-weight: 700;
+            font-size: 3rem;
+        }
+
+        .jumbotron p.lead {
+            font-size: 1.25rem;
+        }
+
+        .jumbotron .btn {
+            margin-top: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+            border-color: #45a049;
+        }
+
+        .product-item {
+            background-color: white;
+            border: 2px solid rgb(45, 101, 71);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .product-image {
+            width: 70%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            color: black;
+        }
+
+        .product-price {
+            color: black;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .notification {
+            background-color: rgb(255, 251, 210);
+            padding-left: 20px;
+            margin-left: 20px;
+            margin-bottom: 100px;
+        }
+
+        .introduce-image {
+            width: 100%;
+            height: auto;
+            margin-left: 350px;
+            margin-bottom: 100px;
+        }
+
+        .introduce {
+            padding-top: 100px;
+            padding-left: 20px;
+        }
+
+        .footer-section {
+            background-color: rgb(212, 225, 224);
+            color: black;
+            padding: 1rem 0;
+        }
+
+        .footer .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .footer a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-description p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="layout :: header"></div>
+<div class="floating-circles">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+</div>
+<div class="content-wrapper" th:fragment="content">
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h1 class="display-4">TALK</h1>
+            <hr class="my-4">
+            <p class="lead">TALK, nơi mà từ những ngày đầu khai trương, chúng tôi đã thu hút sự quan tâm và lòng yêu mến của khách hàng, với mong muốn tạo dấu ấn mới trong cộng đồng đam mê sách và truyền thông.</p>
+            <a class="btn btn-primary btn-lg" href="/products" role="button">Xem tất cả sản phẩm</a>
+        </div>
+    </div>
+
+    <div class="product-section">
+        <div class="container">
+            <div class="intro-section">
+                <h1>Nổi bật</h1>
+                <br>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-item">
+                            <img th:src="@{/images/Hannibal.jpg}" alt="Hannibal" class="product-image">
+                            <h4 class="product-name">Hannibal</h4>
+                            <h4 class="product-price">Giá: 131.000đ</h4>
+                            <div class="product-actions">
+                                <button class="btn btn-success">Mua ngay</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-item">
+                            <img th:src="@{/images/hannibaltroiday.jpg}" alt="Hannibal trỗi dậy" class="product-image">
+                            <h4 class="product-name">Hannibal trỗi dậy</h4>
+                            <h4 class="product-price">Giá: 111.000đ</h4>
+                            <div class="product-actions">
+                                <button class="btn btn-success">Mua ngay</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-item">
+                            <img th:src="@{/images/rongdo.jpg}" alt="Rồng đỏ" class="product-image">
+                            <h4 class="product-name">Rồng đỏ</h4>
+                            <h4 class="product-price">Giá: 114.000đ</h4>
+                            <div class="product-actions">
+                                <button class="btn btn-success">Mua ngay</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="intro-section">
+                <h1>Sách mới</h1>
+                <br>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-item">
+                            <img th:src="@{/images/contho.jpg}" alt="contho" class="product-image">
+                            <h4 class="product-name">Con thỏ nguyền rủa</h4>
+                            <h4 class="product-price">Giá: 117.000đ</h4>
+                            <div class="product-actions">
+                                <button class="btn btn-success">Mua ngay</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-item">
+                            <img th:src="@{/images/bong-dem-bat-xich-mon.jpg}" alt="" class="product-image">
+                            <h4 class="product-name">Bóng đêm bát xích môn</h4>
+                            <h4 class="product-price">Giá: 115.000đ</h4>
+                            <div class="product-actions">
+                                <button class="btn btn-success">Mua ngay</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-item">
+                            <img th:src="@{/images/caycamngot.jpg}" alt="" class="product-image">
+                            <h4 class="product-name">Cây cam ngọt của tôi</h4>
+                            <h4 class="product-price">Giá: 108.000đ</h4>
+                            <div class="product-actions">
+                                <button class="btn btn-success">Mua ngay</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notification">
+                <h1>THÔNG BÁO</h1>
+                <br>
+                <p>- Miễn phí giao hàng với các đơn hàng từ 500.000đ trở lên.</p>
+                <p>- Giảm giá 10% cho sinh viên và học sinh với các đơn hàng từ 300.000đ trở lên.</p>
+                <p>- Các sản phẩm sách mới sẽ được cập nhật thường xuyên, hãy theo dõi để không bỏ lỡ nhé!</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<footer class="footer-section">
+    <div class="footer">
+        <div class="container">
+            <br>
+            <div>
+                <i class="fa-regular fa-envelope " style="display: inline;"></i>
+                <p style="display: inline;">Đăng ký thôi bạn ơi</p>
+            </div>
+            <br>
+            <div class="row g-3">
+                <div class="col-auto">
+                    <input type="text" class="form-control" placeholder="Điền tên của bạn">
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" placeholder="Email nữa">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3"><i class="fa-regular fa-envelope"></i></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <h2 class="logo">Books</h2>
+                </div>
+                <div class="col-lg-3 col-md-6 d-lg-block">
+                    <a href="#">Sách</a><br>
+                    <a href="#">Combo</a><br>
+                    <a href="#">Blog</a><br>
+                    <a href="#">Liên hệ</a><br>
+
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="#">Hỗ trợ</a><br>
+                    <a href="#">Kho thông tin</a><br>
+                    <a href="#">Live chat</a><br>
+                    <a href="#">Cập nhật</a><br>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4">
+                <div class="support">
+                    <button class="btn btn-success">
+                        <i class="fa-brands fa-facebook"></i>
+                    </button>
+                    <span class="space-x"></span>
+                    <button class="btn btn-success">
+                        <i class="fa-brands fa-instagram"></i>
+                    </button>
+                    <span class="space-x"></span>
+                    <button class="btn btn-success">
+                        <i class="fa-brands fa-google"></i>
+                    </button>
+                    <span class="space-x"></span>
+                    <button class="btn btn-success">
+                        <i class="fa-brands fa-twitter"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row footer-description">
+                <div class="col-md-6">
+                    <p>&copy; 2024 Your Company. All rights reserved.</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-end">Terms of Service | Privacy Policy</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</html>

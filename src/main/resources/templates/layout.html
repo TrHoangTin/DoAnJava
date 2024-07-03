@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>WebBanHang</title>
+    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Màu xám nhạt cho nền */
+        }
+        .navbar {
+            background-color: #e9ecef; /* Màu xám nhạt cho thanh điều hướng */
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #343a40; /* Màu chữ cho logo */
+        }
+        .nav-link {
+            padding: 10px 15px;
+            color: #343a40; /* Màu chữ cho các liên kết */
+        }
+        .nav-link:hover {
+            color: #dc3545; /* Màu chữ khi di chuột qua */
+        }
+        .btn-outline-primary {
+            margin-left: 10px;
+            color: #007bff; /* Màu chữ cho nút Đăng nhập */
+            border-color: #007bff; /* Màu viền cho nút Đăng nhập */
+        }
+        .btn-outline-primary:hover {
+            background-color: #007bff; /* Màu nền khi di chuột qua */
+            color: #fff; /* Màu chữ khi di chuột qua */
+        }
+        .text-danger {
+            color: #dc3545; /* Màu chữ cho liên kết Giỏ hàng */
+        }
+        .welcome-message {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="color: #343a40;">WebBanHang</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/" style="color: #343a40;">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products" style="color: #343a40;">Danh sách sản phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories" style="color: #343a40;">Danh sách thể loại</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/news" style="color: #343a40;">Tin tức</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" style="color: #343a40;">Khám phá</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="/cart" style="color: #dc3545;">Giỏ hàng</a> <!-- Chữ "Giỏ hàng" được làm nổi bật -->
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item ml-auto">
+                        <form th:action="@{/logout}" method="post">
+                            <button class="btn btn-outline-primary" type="submit">Đăng xuất</button>
+                        </form>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a href="/login" class="btn btn-outline-primary" style="color: #007bff; border-color: #007bff;">Đăng nhập</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div th:insert="~{::${content}}">
+    <!-- NỘI DUNG TRANG CON --->
+</div>
+<footer th:fragment="footer">
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</footer>
+</body>
+</html>

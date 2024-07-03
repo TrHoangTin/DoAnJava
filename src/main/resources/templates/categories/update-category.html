@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Update Category</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        body {
+            background: #f0f0f0
+            min-height: 100vh;
+            margin: 0;
+
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            margin-top: 100px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+        .btn-primary {
+            background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+            border: none;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(120deg, #66a6ff 0%, #89f7fe 100%);
+        }
+        .btn-link {
+            color: #66a6ff;
+            transition: color 0.3s ease;
+        }
+        .btn-link:hover {
+            color: #89f7fe;
+        }
+        h1 {
+            color: #333333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2rem;
+        }
+        .form-control {
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #66a6ff;
+            box-shadow: 0 0 10px rgba(102, 166, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+<header th:replace="layout :: header"></header>
+<section layout:fragment="content" class="container" data-aos="fade-up">
+    <h1 class="mb-4" data-aos="zoom-in">Update Category</h1>
+    <form th:action="@{/categories/update/{id}(id=${category.id})}" th:object="${category}" method="post" class="needs-validation" novalidate data-aos="fade-up" data-aos-delay="200">
+        <div class="mb-3" data-aos="fade-right" data-aos-delay="300">
+            <label for="name" class="form-label">Category Name:</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" required>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Valid name is required.</div>
+        </div>
+        <button type="submit" class="btn btn-primary" data-aos="fade-left" data-aos-delay="400">Update</button>
+        <a th:href="@{/categories}" class="btn btn-secondary" data-aos="fade-left" data-aos-delay="500">Cancel</a>
+    </form>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1200,
+    });
+</script>
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

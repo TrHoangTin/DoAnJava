@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="${product.name} ?: 'Product Info'">Product Info</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        body {
+            background: #f0f0f0
+            min-height: 100vh;
+
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 50px;
+            width: 80%;
+            max-width: 1200px;
+        }
+        .product-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            gap: 30px;
+        }
+        .product-details {
+            flex: 1;
+            margin-bottom: 20px;
+        }
+        .product-details p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .product-details p span {
+            font-weight: bold;
+            color: #4a84ff;
+        }
+        .product-image {
+            flex: 1;
+            width: 350px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(120deg, #66a6ff 0%, #89f7fe 100%);
+            box-shadow: 0 6px 20px rgba(102, 166, 255, 0.6);
+            transform: translateY(-3px);
+        }
+        .text-center {
+            margin-top: 30px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="layout :: header"></header>
+<section layout:fragment="content">
+    <div class="container" data-aos="fade-up">
+        <h1 class="text-center" th:text="${product.name}" data-aos="zoom-in">Product Name</h1>
+        <div class="product-container" data-aos="fade-up" data-aos-delay="100">
+            <img th:src="${product.imageData}" alt="Product Image" class="product-image">
+            <div class="product-details">
+                <p><span>ID:</span> <span th:text="${product.id}">Product ID</span></p>
+                <p><span>Name:</span> <span th:text="${product.name}">Product Name</span></p>
+                <p><span>Price:</span> <span th:text="${product.price}">Product Price</span></p>
+                <p><span>Description:</span> <span th:text="${product.description}">Product Description</span></p>
+                <p><span>Category:</span> <span th:text="${product.category.name}">Category Name</span></p>
+            </div>
+        </div>
+        <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+            <a th:href="@{/products}" class="btn btn-primary">Back to Products</a>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+</script>
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
